@@ -1,10 +1,17 @@
-const express = require('express');
-const app = express();
+const express = require("express");
 
-app.get('/', (req, res) => {
-    return res.status(200).json({
-        msg: 'Hello world'
-    });
+const LoadENV = require("./config");
+
+const app = express();
+const $ENV = LoadENV([".env.development", ".env"]);
+
+const PORT = $ENV.PORT || 8000;
+const HOST = $ENV.HOST || "0.0.0.0";
+
+app.get("/", function (req, res) {
+  return res.status(200).json({
+    msg: "Hello world",
+  });
 });
 
-app.listen(8000, () => console.log(`Server started on port 8000`));
+app.listen(PORT, HOST, () => console.log(`Server started on port ${PORT}.`));
