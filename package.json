@@ -1,12 +1,12 @@
 {
   "name": "@book-junction/env-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
+  "keywords": ["node","env","env-loader","book junction"],
   "author": "Gaurav Sahitya",
   "license": "ISC",
   "dependencies": {
