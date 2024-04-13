@@ -1,17 +1,21 @@
-const express = require("express");
+const fs = require("fs");
+const $ENV = {};
 
-const LoadENV = require("./config");
+function LoadENV(envPath = [".env"]) {
+  let envFile = "";
 
-const app = express();
-const $ENV = LoadENV([".env.development", ".env"]);
+  for (let index = 0; index < envPath.length; index++) {
+    if (fs.existsSync(envPath[index])) {
+      envFile = envPath[index];
+      break;
+    }
+  }
 
-const PORT = $ENV.PORT || 8000;
-const HOST = $ENV.HOST || "0.0.0.0";
+  if (!envFile) throw new Error("No env file found!!!");
 
-app.get("/", function (req, res) {
-  return res.status(200).json({
-    msg: "Hello world",
-  });
-});
+  require("dotenv").configDotenv({ path: envFile, processEnv: $ENV });
 
-app.listen(PORT, HOST, () => console.log(`Server started on port ${PORT}.`));
+  return $ENV;
+}
+
+module.exports = LoadENV;
